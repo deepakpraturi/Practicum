@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container">
+        <div class="col s12">
+            <form method="post" id="signup_form">
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">email</i>
+                        <input type="text" name="email" id="email-signup">
+                        <label for="email-signup">Email Address</label>
+                        <div id="invalid-email-signup" style="display: none">Please enter a valid email address</div>
+                        <div id="email-exists-signup" style="display: none">Email ID already exists!!!</div>
+                        <div id="email-not-exists-signup" style="display: none">Email ID doesn't exist!!!</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">lock_outline</i>
+                        <input type="password" name="password" id="pwd-signup">
+                        <label for="pwd-signup">Password</label>
+                        <div id="invalid-pwd-signup" style="display: none">Password should be between 3 to 20 characters.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">lock</i>
+                        <input type="password" name="retype_password" id="re-pwd-signup">
+                        <label for="re-pwd-signup">Re-type Password</label>
+                        <div id="invalid-retype-signup" style="display: none">Passwords should match.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">face</i>
+                        <input type="text" name="full_name" id="full_name-signup">
+                        <label for="full_name-signup">Full Name</label>
+                        <div id="invalid-full-name-signup" style="display: none">Minimum length is 3</div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">supervisor_account</i>
+                        <select name="gender">
+                            <option value="" disabled selected>Choose your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+{#                    <label>Materialize Select</label>#}
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">local_phone</i>
+                        <input type="tel" name="mobile_number" id="mobile_number-signup">
+                        <label for="mobile_number-signup">Mobile Number</label>
+                        <div id="invalid-mobile-signup" style="display: none">Please enter a valid mobile number</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">perm_contact_calendar</i>
+                        <input type="text" class="datepicker" name="date" id="datepick">
+                        <label for="datepick">Date of Birth</label>
+                    </div>
+                </div>
+
+                <button class="btn" type="submit" value="Signup" id="signup-button">Signup</button>
+
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+            $('.datepicker').datepicker();
+            });
+        </script>
+    </div>
+{% endblock %}

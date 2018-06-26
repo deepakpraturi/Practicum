@@ -1,0 +1,37 @@
+{% extends "admin-layout.html" %}
+{% block body %}
+    <form action="{{ url_for('create_category') }}" method="post" enctype="multipart/form-data">
+    <h3>Create Category</h3>
+<div class="col-md-12 form-group">
+    <div class="col-md-12">
+    <input type="text" placeholder="Category Name" name="category_name" class="form-control">
+    <input type="text" placeholder="Category Description" name="category_description" class="form-control">
+     <input type="file" class="form-control" name="file">
+    <input type="submit" name="submit" class="btn btn-success" value="submit">
+</div>
+</div>
+    <div class="col-md-12">
+        <table class="highlight responsive-table">
+            <thead>
+            <tr>
+                <td>Category Name</td>
+                <td>Category Description</td>
+                <td>Category Image</td>
+                <td>Category Status</td>
+            </tr>
+            </thead>
+            {% for cat in categories %}
+                <tr>
+                <td><h5>{{ cat.category_name }}</h5></td>
+                <td>{{ cat.category_description }}</td>
+                <td><figure>
+            <img src="{{ url_for('serve_image', id=cat.key.urlsafe()) }}" class="img-thumbnail" width="80">
+                </figure></td>
+                <td>{{ cat.category_status }}</td>
+                </tr>
+          {% endfor %}
+        </table>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h3 style="text-align: center">Edit User</h3>
+<div class="container">
+
+<form action="{{ url_for('user_update_profile') }}" class="form-group" method="post">
+{% for x in user %}
+    <div class="input-field">
+        <label for="date">Email:</label>
+        <input type="text" value="{{ x.email }}" name="email" class="form-control" readonly>
+    </div>
+    <div class="input-field">
+        <label for="fullname">Full Name:</label>
+        <input type="text" value="{{ x.full_name }}" name="fullname" class="form-control">
+    </div>
+    <div class="input-field">
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" value="{{ x.mobile_number }}" name="mobile_number" class="form-control">
+    </div>
+    <div class='input-group date col-md-6' id='datetimepicker1'>
+        <input type="text" class="datepicker" id="datepick" value="{{ x.dob }}" name="date">
+                        <label for="datepick">Date of Birth</label>
+    </div>
+    <div class="panel panel-default form-group">
+    <div class="panel-heading">
+        <p>Interested Categories:<input type="text" value="{{ x.interested_categories }}" class="form-control" readonly></p>
+    </div>
+    <div class="panel-body">
+        {% for cat in categories %}
+        {% if cat.category_name in x.interested_categories %}
+            <input type="checkbox" name="category" value="{{ cat.category_name }}" checked><label>{{ cat.category_name }}</label>&nbsp;
+        {% else %}
+            <input type="checkbox"  name="category" value="{{ cat.category_name }}"><label>{{ cat.category_name }}</label>
+        {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+    <div class="col-md-6 form-group">
+        <input type="submit" class="btn btn-success" value="Edit" name="submit">
+    </div>
+     </form>
+{% endfor %}
+
+{% for x in user %}
+<a href="{{ url_for('user_update_profile_image',user_id=x.key.id()) }}">
+            <input type="button" name="submit" class="btn btn-info" value="Change/Remove Profile Picture">
+        </a>
+    <figure>
+        <img src="{{ url_for('serve_image', id=x.key.urlsafe()) }}" class="img-responsive">
+    </figure>
+
+{% endfor %}
+
+<div class="col-md-12 form-group">
+
+        <label for="date">Posts:</label>
+        {% for l in liked_posts %}
+        <form action="{{ url_for('user_delete_liked_post',post_id=l.key.id()) }}" method="post">
+            <input type="text" value="{{ l.post_title }}" class="form-control" readonly>
+            <input type="submit" value="Delete" class="btn btn-warning">
+        </form>
+        {% endfor %}
+    </div>
+</div>
+    <script type="text/javascript">
+            $(document).ready(function(){
+            $('.datepicker').datepicker();
+            });
+        </script>
+{% endblock %}

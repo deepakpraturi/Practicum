@@ -1,0 +1,177 @@
+{% extends 'admin-layout.html' %}
+{% block body %}
+    <h3 style="text-align: center">Admin Home</h3>
+    <div class="container">
+    <h4 style="text-align: center">Users</h4>
+    <div style="overflow-x:auto;">
+    <table id="table" class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Mobile Number</th>
+                <th>Date of birth</th>
+                <th>Created Date</th>
+                <th>Interested Categories</th>
+
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        {% for u in users %}
+        <tr>
+            <td>
+                {{ loop.index }}
+            </td>
+            <td>
+                {{ u.email }}
+            </td>
+            <td>
+                {{ u.full_name }}
+            </td>
+            <td>
+                {{ u.mobile_number }}
+            </td>
+            <td>
+                {{ u.dob }}
+            </td>
+            <td>
+                {{ u.created_date.strftime('%Y-%m-%d') }}
+            </td>
+            <td>
+                {{ u.interested_categories }}
+            </td>
+            <td>
+                {{ u.users_status }}
+            </td>
+            <td style="width: auto">
+                <div class="col-md-6">
+                <form action="{{ url_for('admin_edit_user',email=u.email) }}" method="post">
+                    <input type="submit" class="btn btn-info" name="submit" value="Edit">
+                </form>
+                </div>
+                <div class="col-md-6">
+                <form action="{{ url_for('admin_delete_user',email=u.email) }}" method="post">
+                    <input type="submit" class="btn btn-warning" name="submit" value="Delete">
+                </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+    <div class="container">
+    <h4 style="text-align: center">Posts</h4>
+    <div style="overflow-x:auto;">
+    <table id="table_1" class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Post ID</th>
+                <th>Post Title</th>
+                <th>Email</th>
+                <th>Category Name</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        {% for p in posts %}
+        <tr>
+            <td>
+                {{ loop.index }}
+            </td>
+            <td>
+                {{ p.key.id() }}
+            </td>
+            <td>
+                {{ p.post_title }}
+            </td>
+            <td>
+                {{ p.email }}
+            </td>
+            <td>
+                {{ p.category_name }}
+            </td>
+
+            <td>
+                {{ p.created_date.strftime('%Y-%m-%d') }}
+            </td>
+            <td>
+                {{ p.post_status }}
+            </td>
+            <td style="white-space: nowrap">
+                <div class="col-md-3">
+                <form action="{{ url_for('admin_edit_post',post_id=p.key.id()) }}" method="post">
+                    <input type="submit" class="btn btn-info" name="submit" value="Edit">
+                </form>
+                </div>
+                <div class="col-md-3">
+                <form action="{{ url_for('admin_delete_post',post_id=p.key.id()) }}" method="post">
+                    <input type="submit" class="btn btn-warning" name="submit" value="Delete">
+                </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </div>
+
+    <div class="container">
+    <h4 style="text-align: center">Categories</h4>
+    <a href="{{ url_for('create_category') }}"><input type="button" value="Create Category" class="btn btn-primary"></a>
+    <div style="overflow-x:auto;">
+    <table id="table_2" class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Category ID</th>
+                <th>Category Name</th>
+                <th>Category Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        {% for c in categories %}
+        <tr>
+            <td>
+                {{ loop.index }}
+            </td>
+            <td>
+                {{ c.key.id() }}
+            </td>
+            <td>
+                {{ c.category_name }}
+            </td>
+            <td>
+                {{ c.category_status }}
+            </td>
+            <td style="white-space: nowrap">
+                <div class="col-md-3">
+                    <form action="{{ url_for('admin_edit_category',category_id=c.key.urlsafe()) }}" method="POST">
+                        <input type="submit" class="btn btn-info" name="submit" value="Edit">
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <form action="{{ url_for('admin_delete_category',category_id=c.key.urlsafe()) }}" method="post">
+                        <input type="submit" class="btn btn-warning" name="submit" value="Delete">
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </div>
+
+
+    <script>
+    $(document).ready(function() {
+    $('#table').DataTable();
+    $('#table_1').DataTable();
+    $('#table_2').DataTable();
+} );
+    </script>
+{% endblock %}

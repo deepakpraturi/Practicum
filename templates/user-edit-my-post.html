@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h3 style="text-align: center">Edit My Post</h3>
+<div class="container">
+    <form action="{{ url_for('user_edit_my_post',post_id=post.key.urlsafe()) }}" class="form-group" method="post">
+    <div class="col-md-6 form-group">
+        <label for="post_id">Post ID:</label>
+        <input type="text" value="{{ post.key.id() }}" name="post_id" class="form-control" readonly>
+
+        <label for="post_title">Post Title:</label>
+        <input type="text" value="{{ post.post_title }}" name="post_title" class="form-control">
+        <label for="email" >Email:</label>
+        <input type="text" value="{{ post.email }}" name="email" class="form-control" readonly>
+        <div class="input-field col s12">
+            <select name="selected_category">
+
+                {% for cat in categories %}
+                {% if post.category_name in cat.category_name %}
+                    <h2>Hello</h2>
+                <option value="{{ cat.category_name }}" selected>{{ cat.category_name }}</option>
+                {% else %}
+                <option value="{{ cat.category_name }}">{{ cat.category_name }}</option>
+                {% endif %}
+            {% endfor %}
+
+            </select>
+            <label>Materialize Select</label>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('select').formSelect();
+            });
+        </script>
+{#        <input type="text" value="{{ x.category_name }}" name="category_name" class="form-control">#}
+          <div class="col-md-12 form-group">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <p>Top Ten List</p>
+    </div>
+    <div class="panel-body">
+        {% for l in post.post_list %}
+            <input type="text" name="list" class="form-control" value="{{ l }}">
+        {% endfor %}
+    </div>
+    </div>
+
+        <div class="col-md-3 form-group">
+            <input type="submit" class="btn btn-success" value="Edit" name="submit">
+        </div>
+      </div>
+    </div>
+    </form>
+</div>
+{% endblock %}

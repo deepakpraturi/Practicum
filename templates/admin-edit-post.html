@@ -1,0 +1,66 @@
+{% extends 'admin-layout.html' %}
+{% block body %}
+<h3 style="text-align: center">Edit Post</h3>
+<div class="container">
+{% for x in posts %}
+    <form action="{{ url_for('admin_update_post') }}" class="form-group" method="post">
+    <div class="col-md-6 form-group">
+        <label for="post_id">Post ID:</label>
+        <input type="text" value="{{ x.key.id() }}" name="post_id" class="form-control" readonly>
+        <label for="post_title">Post Title:</label>
+        <input type="text" value="{{ x.post_title }}" name="post_title" class="form-control">
+        <label for="email" >Email:</label>
+        <input type="text" value="{{ x.email }}" name="email" class="form-control" readonly>
+        <label for="mobile">Category Name:</label>
+{#        <input type="text" value="{{ x.category_name }}" name="category_name" class="form-control">#}
+        <select name="category_selected" class="form-control">
+            {% for cat in categories %}
+                {% if x.category_name in cat.category_name %}
+                <option selected>{{ cat.category_name }}</option>
+                {% else %}
+                <option>{{ cat.category_name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <label for="status">Post Status</label>
+        <select name="userstatus" class="selectpicker form-control">
+            {% if x.post_status %}
+            <option selected>True</option>
+            <option>False</option>
+            {% else %}
+            <option>True</option>
+            <option selected>False</option>
+            {% endif %}
+        </select>
+    <label for="Uploaded_file">Uploaded Image:</label>
+        <a href="{{ url_for('admin_update_post_image',post_id=x.key.id()) }}">
+            <input type="button" name="submit" class="btn btn-info" value="Change">
+        </a>
+    </div>
+
+    <figure>
+        <img src="{{ url_for('serve_image', id=x.key.urlsafe()) }}" alt="{{ x.alt }}">
+    </figure>
+
+    <div class="col-md-12 form-group">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <p>Top Ten List</p>
+    </div>
+    <div class="panel-body">
+        {% for l in x.post_list %}
+            <input type="text" name="list" class="form-control" value="{{ l }}">
+        {% endfor %}
+    </div>
+    </div>
+
+    <div class="col-md-3 form-group">
+        <input type="submit" class="btn btn-success" value="Edit" name="submit">
+    </div>
+    </div>
+    </form>
+{% endfor %}
+
+</div>
+
+{% endblock %}

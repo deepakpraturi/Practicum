@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="col s12">
+            <div class="card">
+                <h1 class="center"><b>Top 10 by users</b></h1>
+                <ul>
+                {% for movie in top10 %}
+                    <li><h5>{{ loop.index }}: {{ movie.movie_names }}</h5></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

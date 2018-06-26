@@ -1,0 +1,9 @@
+{% extends 'admin-layout.html' %}
+{% block body %}
+<h3>Edit your post image</h3>
+<form enctype="multipart/form-data" action="{{ url_for('admin_update_post_image',post_id=post_id) }}" method="post">
+<label for="fileupload">File:</label> <input type="file" name="file" class="form-control">
+<label for="Alt">Alt:</label><input type="text" class="form-control" name="alt">
+    <input type="submit" class="btn btn-danger" value="submit" class="form-control">
+</form>
+{% endblock %}

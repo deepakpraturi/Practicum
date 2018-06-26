@@ -1,0 +1,28 @@
+{% extends 'admin-layout.html' %}
+{% block body %}
+    <div class="container">
+        <div class="col s12">
+            <form method="post">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">email</i>
+                        <input type="text" name="email" id="admin_email">
+                        <label for="admin_email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">lock</i>
+                        <input type="password" name="password" id="admin_pwd">
+                        <label for="admin_pwd">Password</label>
+                    </div>
+                </div>
+                {% if error %}
+                    <div class="red lighten-1 center" id="login-failed"><b>Invalid credentials</b></div>
+                    <br>
+                {% endif %}
+                <button class="btn waves-effect" type="submit" value="Login">Login</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

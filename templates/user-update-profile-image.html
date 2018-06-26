@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h3>Edit your profile image</h3>
+<form enctype="multipart/form-data" action="{{ url_for('user_update_profile_image',user_id=user_id) }}" method="post">
+
+    <label for="fileupload">File:</label> <input type="file" name="file" class="form-control">
+
+    <input type="submit" class="btn btn-info" value="Update" class="form-control">
+
+</form>
+<form enctype="multipart/form-data" action="{{ url_for('user_delete_profile_image',user_id=user_id) }}" method="post">
+    <label for="fileupload">File:</label>
+    <input type="submit" class="btn btn-danger" value="Delete" class="form-control">
+</form>
+
+{% endblock %}

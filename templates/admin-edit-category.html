@@ -1,0 +1,32 @@
+{% extends 'admin-layout.html' %}
+{% block body %}
+<div class="row">
+<div class="col-md-12">
+<form action="{{ url_for('admin_update_category',category_id=categories.key.urlsafe()) }}" method="post" enctype="multipart/form-data">
+
+    <div class="col-md-6 form-group">
+        <label for="category_name">Category Name</label>
+        <input type="text" value="{{ categories.category_name }}" class="form-control" name="category_name">
+    </div>
+<div class="col-md-6 form-group">
+    <label for="status">Status</label>
+        <select name="category_status" class="selectpicker form-control">
+            {% if categories.category_status %}
+            <option selected>True</option>
+            <option>False</option>
+            {% else %}
+            <option>True</option>
+            <option selected>False</option>
+            {% endif %}
+        </select>
+    </div>
+    <div class="col-md-6 form-group">
+
+        <input type="submit" value="Update" class="btn btn-danger">
+    </div>
+    </form>
+
+</div>
+</div>
+
+{% endblock %}

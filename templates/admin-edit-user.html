@@ -1,0 +1,66 @@
+{% extends 'admin-layout.html' %}
+{% block body %}
+<h3 style="text-align: center">Edit User</h3>
+<div class="container">
+{% for x in user %}
+    <form action="{{ url_for('admin_update_user') }}" class="form-group" method="post">
+    <div class="col-md-6 form-group">
+        <label for="date">Email:</label>
+        <input type="text" value="{{ x.email }}" name="email" class="form-control" readonly>
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="fullname">Full Name:</label>
+        <input type="text" value="{{ x.full_name }}" name="fullname" class="form-control">
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" value="{{ x.mobile_number }}" name="mobile_number" class="form-control">
+    </div>
+    <div class='input-group date col-md-6' id='datetimepicker1'>
+        <label for="date">Date of Birth:</label>
+        <input type='text' class="form-control" name="date" placeholder="Date and Time" value="{{ x.dob }}"/>
+        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+    </div>
+    <div class="panel panel-default form-group">
+    <div class="panel-heading">
+        <p>Interested Categories:<input type="text" value="{{ x.interested_categories }}" class="form-control" readonly></p>
+    </div>
+    <div class="panel-body">{% for cat in categories %}
+        {% if cat.category_name in x.interested_categories %}
+            <input type="checkbox" name="category" value="{{ cat.category_name }}" checked><label>{{ cat.category_name }}</label>&nbsp;
+        {% else %}
+            <input type="checkbox"  name="category" value="{{ cat.category_name }}"><label>{{ cat.category_name }}</label>
+        {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <label for="date">Posts:</label>
+        <input type="text" value="{{ x.liked_posts }}" class="form-control" readonly>
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="status">User Status</label>
+        <select name="userstatus" class="selectpicker form-control">
+            {% if x.users_status %}
+            <option selected>True</option>
+            <option>False</option>
+            {% else %}
+            <option>True</option>
+            <option selected>False</option>
+            {% endif %}
+        </select>
+    </div>
+    <div class="col-md-6 form-group">
+        <input type="submit" class="btn btn-success" value="Edit" name="submit">
+    </div>
+     </form>
+{% endfor %}
+
+</div>
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+{% endblock %}

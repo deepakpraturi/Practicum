@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <div class="container">
+    <h1 class=center>{{ request.path }}</h1>
+<form action="#" style="margin: 5%;">
+    {% for category in categories %}
+    <label style="margin-right: 12%">
+    <input name="categories_group" type="radio" id="{{ category.category_name }}" onclick="filter('{{ category.category_name }}')"/>
+    <span style="color: black"><b>{{ category.category_name }}</b></span>
+    </label>
+    {% endfor %}
+</form>
+<div class="row">
+        {% for post in post_list %}
+            <div class="col s12 m5 l5 xl5 {{ post.category_name }}" style="margin: 2%;">
+                <div class="card yellow darken-3 z-depth-5">
+                    <div class="card-content white-text">
+                        <a href="{{ url_for('post_page', post_id=post.key.id()) }}"><b><span class="card-title" style="color: green; font-weight: bold; text-decoration: underline">{{ post.post_title }}</span></b></a>
+                        <p class="left-align card-info" style="font-size: 12px"><b>Posted by: </b>{{ post.email }}</p>
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                        I am convenient because I require little markup to use effectively.</p>
+                    </div>
+{#                    <div class="divider"></div>#}
+                    <div class="card-action grey darken-3 white-text">
+                        {% if session.user in post.liked_posts %}
+                            <div class="heart heart-blast tooltipped" data-position="right" data-tooltip="{% for i in range(post.liked_posts|length-1,post.liked_posts|length-6, -1) %}{% if i >= 0 %}<span>{{ post.liked_posts[i] }}</span><br>{% endif %}{% endfor %}" id="like-{{ post.key.urlsafe() }}"><h6 class="right valign-wrapper" style="padding-top: 26%; font-size: 26px">{{ post.liked_posts|length }}</h6></div>
+                        {% else %}
+                            <div class="heart tooltipped" data-position="right" data-tooltip="{% for i in range(post.liked_posts|length-1,post.liked_posts|length-6, -1) %}{% if i>=0 %}<span>{{ post.liked_posts[i] }}</span><br>{% endif %}{% endfor %}" id="like-{{ post.key.urlsafe() }}"><h6 class="right valign-wrapper" style="padding-top: 26%; font-size: 26px">{{ post.liked_posts|length }}</h6></div>
+                        {% endif %}
+                        <p class="right-align card-info" style="font-size: 12px"><b>Category: </b>{{ post.category_name }}</p>
+                        <p class="right-align card-info" style="font-size: 12px"><b>Created on: </b>{{ post.created_date.strftime('%Y-%m-%d') }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+    <script src="{{ url_for('static', filename='js/filter.js') }}" ></script>
+{% endblock %}

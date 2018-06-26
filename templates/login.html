@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container">
+        <div class="col s12">
+            <form method="post" id="login-form">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">email</i>
+                        <input type="text" name="email" id="form_email">
+                        <label for="form_email">Email</label>
+                        <div id="error-email" style="display: none">Please enter a valid email address</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">lock</i>
+                        <input type="password" name="password" id="form_pwd">
+                        <label for="form_pwd">Password</label>
+                        <div id="error-pwd" style="display: none">Password should be greater between 3 to 20 characters</div>
+                    </div>
+                </div>
+                <div id="login-failed" style="display: none">Invalid credentials</div>
+                <div id="login-success" style="display: none">Login success</div>
+                <button class="btn waves-effect" type="submit" value="Login">Login</button>
+                <fb:login-button
+                  id="fb-btn"
+                  scope="public_profile,email"
+                  onlogin="checkLoginState()">
+                </fb:login-button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/fb_login.js') }}" ></script>
+
+
+{% endblock %}

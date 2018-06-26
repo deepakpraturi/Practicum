@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="col-md-12">
+        {% for post in post_list %}
+        <div class="well">
+            <h3><a href="{{ url_for('post_page',post_id=post.key.id()) }}">{{ post.post_title }}</a></h3>
+            <h5>{{ post.key.id() }}</h5>
+            <h5>Category:{{ post.category_name }}</h5>
+            <h5>Created on:{{ post.created_date.strftime('%Y-%m-%d') }}</h5>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

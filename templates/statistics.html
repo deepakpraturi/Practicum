@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% block body %}
+      <div class="container">
+
+    <div class="col s12 m7" id = "maxlikes_div">
+          <h3>Best Post of the Day</h3>
+    <div class="card horizontal">
+      <div class="card-image" id="card_image">
+
+      </div>
+      <div class="card-stacked">
+            <h4 class="card-title" id="h4_post_title"></h4>
+        <div class="card-content">
+          <span id="p_category_name"></span><br>
+            <span id="p_uploaded_by"></span><br>
+            <span id="p_uploaded_date"></span>
+        </div>
+        <div class="card-action">
+          <a id="post_page_link">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="parallax-container">
+      <div class="parallax"><img src="{{ url_for('static', filename='images/gru_minions_despicable_me_3_5k-3840x2160.jpg') }}" ></div>
+    </div>
+    <div class="section white">
+      <div class="container">
+{#        <h2 class="header">Parallax</h2>#}
+
+    <div class="col s12" style="vertical-align: middle">
+        <h4><em>Which Categories People are interested in</em></h4>
+    </div>
+        <div class="col s12" id="chart_div"></div>
+
+
+        <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+      </div>
+    </div>
+    <div class="parallax-container">
+      <div class="parallax"><img src="{{ url_for('static', filename='images/despicable_me_3_minions_4k_8k-3840x2160.jpg') }}"></div>
+    </div>
+    <div class="section white">
+      <div class="container">
+{#        <h2 class="header">Parallax</h2>#}
+    <div class="col s12" style="vertical-align: middle">
+        <h4><em>Tags being used by Users</em></h4>
+    </div>
+        <div class="col s12" id="chart_div_1"></div>
+
+
+        <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+      </div>
+    </div>
+    <!--Div that will hold the pie chart-->
+
+
+{#    <div class="col s12" id="maxlikes_div"></div>#}
+    <script src="{{ url_for('static', filename='js/statistics.js') }}" ></script>
+
+{% endblock %}

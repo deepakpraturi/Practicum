@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container">
+    {% for p in post %}
+        <div class="col s12 frame" style="padding-top: 3%">
+                <h1 class="center-align" style="text-decoration: underline"><b><em>{{ p.post_title }}</em></b></h1>
+                <br><br>
+                {% for list_item in p.post_list %}
+                    <h5>{{ list_item }}</h5>
+                {% endfor %}
+                <br><br>
+                <hr>
+            <h6 class="left" style="padding: 0; margin: 0"><b>Contributed By: </b>{{ p.email }}</h6>
+            <br>
+            <h6 class="left" style="padding: 0; margin: 0;"><b>Category: </b>{{ p.category_name }}</h6>
+            <br>
+            <h6 class="left" style="padding: 0; margin: 0;"><b>Posted On: </b>{{ p.created_date.strftime('%Y-%m-%d') }}</h6>
+        </div>
+
+        {% if session.user %}
+            <div class="col s6">
+
+            <div class="col s6">
+                {% if session.user in p.liked_posts %}
+                    <div class="heart heart-blast" id="like-{{ p.key.urlsafe() }}"><h6 class="right valign-wrapper" style="padding-top: 26%; font-size: 26px">{{ p.liked_posts|length }}</h6></div>
+                {% else %}
+                    <div class="heart" id="like-{{ p.key.urlsafe() }}"><h6 class="right valign-wrapper" style="padding-top: 26%; font-size: 26px">{{ p.liked_posts|length }}</h6></div>
+                {% endif %}
+            </div>
+
+             <h5>Comments Section:</h5>
+             <ul class="collection" id="comments" style="overflow: auto; height: 330px" >
+             {% for c in comments %}
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">face</i>
+                    <span class="title"><b>{{ c.comment_by }}</b></span>
+                    <p>{{ c.comment }}<br>
+                    </p>
+                    {% if session['user']==c.comment_by %}
+                        <div class="secondary-content btn-flat">
+                            <i class="material-icons delete-comment" id="id-{{ c.key.id() }}" style="font-weight: bold; color: red">close</i>
+                        </div>
+                    {% endif %}
+                </li>
+             {% endfor %}
+             </ul>
+
+            <div class="col s12">
+                <form method="post" id="post-comment">
+                    <div class="row" id="id-{{ p.key.id() }}">
+                        <div class="col s6">
+                            <div class="input-field">
+                                <i class="material-icons prefix">comment</i>
+                                <input type="text" hidden value="{{ p.email }}" name="posted_by" id="posted_by">
+                                <input type="text" name="comment" id="input_comment">
+                                <label for="input_comment">Your comment...</label>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <button class="btn-flat waves-effect waves-teal comment-submit" type="submit" value="Post Comment" style="height: auto; padding-left: 0px">
+                                <i class="material-icons" style="margin-top: 50%; font-size: 3rem; color: teal">send</i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    <script>$("#comments").animate({ scrollTop: $('#comments').prop("scrollHeight")}, 1000);</script>
+{% endblock %}
